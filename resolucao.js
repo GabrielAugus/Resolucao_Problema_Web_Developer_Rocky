@@ -69,16 +69,15 @@ var broken_Database = [{
 }
 ]
 
-function readDataBase(){
+function lerBancoDados(){
  
   // "For" irá ler todos os elementos dentro do da estrutura broken_DataBase que recebe o JSON.
 
   for (var i = 0; i < broken_Database.length; i++){
 
-    function readNames(){
-      let showDataBaseNames = broken_Database[i].name
-      let itemsDataBaseNames = showDataBaseNames.length
-      let correctCharArray = [
+    function lerNomes(){
+      let receberDataBaseNames = broken_Database[i].name
+      let caracteresCorretos = [
           "Conjunto de Panelas antiaderentes com 05 Peças Paris",
           "Lava e Seca 10,2 Kg Samsung Eco Bubble Branca com 09 Programas de Lavagem",
           "Refrigerador bottom Freezer Electrolux de 02 Portas Frost Free com 598 Litros",
@@ -90,21 +89,21 @@ function readDataBase(){
           "Monitor 29 LG FHD Ultrawide com 1000:1 de contraste",
           "Mouse Gamer Predator cestus 510 Fox Preto",
       ]
-      var correctNames = showDataBaseNames.replace(showDataBaseNames, correctCharArray[i])
+      var nomesCorretos = receberDataBaseNames.replace(receberDataBaseNames, caracteresCorretos[i])
 
-      return broken_Database[i].name = correctNames
+      return broken_Database[i].name = nomesCorretos
       
     } 
     
     
     // Function readQuantities() é função responsável por verificar qual elemento do objeto broken_dataBase está sendo a propriedade "quantity" e inclui-lás com valor 0
-    function readQuantities(){
+    function lerQuantidades(){
 
-      let showDataBaseQuantities = broken_Database[i].quantity
+      let receberDataBaseQuantidade = broken_Database[i].quantity
 
-      if(showDataBaseQuantities == undefined){
-        let correctDataBaseQuantities = 0
-        return broken_Database[i].quantity = correctDataBaseQuantities
+      if(receberDataBaseQuantidade == undefined){
+        let dataBaseQuantidadeCorreta = 0
+        return broken_Database[i].quantity = dataBaseQuantidadeCorreta
       }
       
       // console.log(showDataBaseQuantities)
@@ -113,19 +112,19 @@ function readDataBase(){
 
     // Function readPrice() é função responsável por corrigir todos os preços que foram transformados em String ----
 
-    function readPrices(){
+    function lerPrecos(){
 
-      let showDataBasePrices = broken_Database[i].price
-      let correctDataBasePrices = parseFloat(showDataBasePrices)
+      let receberQuantidadePreco = broken_Database[i].price
+      let dataBaseprecosCorretos = parseFloat(receberQuantidadePreco)
 
-      return broken_Database[i].price = correctDataBasePrices
+      return broken_Database[i].price = dataBaseprecosCorretos
       
     } 
     
 
-    readNames()
-    readQuantities()
-    readPrices()
+    lerNomes()
+    lerQuantidades()
+    lerPrecos()
 
     
     
@@ -142,7 +141,7 @@ function readDataBase(){
 
 function ordenar(){
 
-  readDataBase()
+  lerBancoDados()
 
   function ordemAlfabetica(){
     var ordemAlfabetica = broken_Database.sort((a, b) => a.category < b.category ? -1 : true)
@@ -163,13 +162,23 @@ function ordenar(){
 
 function somaCategoria(){
 
-  readDataBase()
+  lerBancoDados()
 
-  var arrayEletronicos = broken_Database.filter(p => p.category === 'Eletrônicos').reduce((acc, eletr)=> acc + eletr.quantity, 0)
-  var arrayAcessorios = broken_Database.filter(p => p.category === 'Acessórios').reduce((acc, eletr)=> acc + eletr.quantity, 0)
-  var arrayEletrodomesticos = broken_Database.filter(p => p.category === 'Eletrodomésticos').reduce((acc, eletr)=> acc + eletr.quantity, 0)
+  let arrayEletronicos = broken_Database
+          .filter(p => p.category === 'Eletrônicos')
+          .reduce((acc, eletr)=> acc + eletr.quantity, 0)
+
+
+  let arrayAcessorios = broken_Database
+          .filter(p => p.category === 'Acessórios')
+          .reduce((acc, eletr)=> acc + eletr.quantity, 0)
+
+
+  let arrayEletrodomesticos = broken_Database
+          .filter(p => p.category === 'Eletrodomésticos')
+          .reduce((acc, eletr)=> acc + eletr.quantity, 0)
   
-  var somatoria = [{
+  let somatoria = [{
     "Category": 'Eletrônicos',
     "Total_Quantidade": arrayEletronicos
   },
