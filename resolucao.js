@@ -71,7 +71,7 @@ var broken_Database = [{
 
 function lerBancoDados(){
  
-  // "For" irá ler todos os elementos dentro do da estrutura broken_DataBase que recebe o JSON.
+  // "For" irá ler todos os elementos dentro do da estrutura broken_DataBase que vem do JSON.
 
   for (var i = 0; i < broken_Database.length; i++){
 
@@ -96,7 +96,7 @@ function lerBancoDados(){
     } 
     
     
-    // Function readQuantities() é função responsável por verificar qual elemento do objeto broken_dataBase está sendo a propriedade "quantity" e inclui-lás com valor 0
+    // A função lerQuantidades() é responsável por verificar qual elemento do objeto broken_dataBase está sendo a propriedade "quantity" e inclui-lás com valor 0
     function lerQuantidades(){
 
       let receberDataBaseQuantidade = broken_Database[i].quantity
@@ -106,11 +106,10 @@ function lerBancoDados(){
         return broken_Database[i].quantity = dataBaseQuantidadeCorreta
       }
       
-      // console.log(showDataBaseQuantities)
-
+      
     }
 
-    // Function readPrice() é função responsável por corrigir todos os preços que foram transformados em String ----
+    // A função lerPrecos() é responsável por corrigir todos os preços que foram transformados em String ----
 
     function lerPrecos(){
 
@@ -137,7 +136,7 @@ function lerBancoDados(){
 
 /*Funções de validação*/
 
-/* A função 'ordemAlfabetica' irá retornar o resultado final do arquivo corrigido ordenado em crescente pelos números de ID e em ordem alfabética. */
+/* A função 'ordenar()' irá retornar o resultado final do arquivo corrigido ordenado em crescente pelos números de ID e em ordem alfabética. */
 
 function ordenar(){
 
@@ -158,7 +157,7 @@ function ordenar(){
 }
 
 
-/* A função 'somaCategoria' é responsável por devolver a somatória da quantidade de itens que temos em cada categoria */
+/* A função 'somaCategoria()' é responsável por devolver a somatória da quantidade de itens que temos em cada categoria */
 
 function somaCategoria(){
 
@@ -178,6 +177,9 @@ function somaCategoria(){
           .filter(p => p.category === 'Eletrodomésticos')
           .reduce((acc, eletr)=> acc + eletr.quantity, 0)
   
+
+          
+
   let somatoria = [{
     "Category": 'Eletrônicos',
     "Total_Quantidade": arrayEletronicos
