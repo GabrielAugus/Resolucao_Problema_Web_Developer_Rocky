@@ -75,48 +75,44 @@ function lerBancoDados(){
 
   for (var i = 0; i < broken_Database.length; i++){
 
+    /* Function 'lerNomes()' será responsável por localizar os caracteres que estão errados e reverter a seus respectivos caracteres corretos  */
+
     function lerNomes(){
       let receberDataBaseNames = broken_Database[i].name
-      let caracteresCorretos = [
-          "Conjunto de Panelas antiaderentes com 05 Peças Paris",
-          "Lava e Seca 10,2 Kg Samsung Eco Bubble Branca com 09 Programas de Lavagem",
-          "Refrigerador bottom Freezer Electrolux de 02 Portas Frost Free com 598 Litros",
-          "Fogão de Piso Electrolux de 04 bocas, Mesa de Vidro Prata",
-          "Forno Micro-ondas Panasonic com capacidade de 21 Litros branco",
-          "Smart TV 4K Sony LED 65” 4K X-Reality Pro, UpScalling, Motionflow XR 240 e Wi-Fi",
-          "Home Theater LG com Blu-ray 3D, 5.1 canais e 1000W",
-          "Kit Gamer acer - Notebook + Headset + Mouse",
-          "Monitor 29 LG FHD Ultrawide com 1000:1 de contraste",
-          "Mouse Gamer Predator cestus 510 Fox Preto",
-      ]
-      var nomesCorretos = receberDataBaseNames.replace(receberDataBaseNames, caracteresCorretos[i])
+      let caracteresCorretos = receberDataBaseNames
+              .replace(/ø/gi, "o")
+              .replace(/æ/gi, "a")
+              .replace(/¢/gi, "c")
+              .replace(/ß/gi, "b")
 
-      return broken_Database[i].name = nomesCorretos
       
+      broken_Database[i].name = caracteresCorretos
     } 
     
     
-    // A função lerQuantidades() é responsável por verificar qual elemento do objeto broken_dataBase está sendo a propriedade "quantity" e inclui-lás com valor 0
+    // A função lerQuantidades() é responsável por verificar qual elemento do objeto broken_dataBase está sem a propriedade "quantity" e inclui-lás com valor 0
     function lerQuantidades(){
 
       let receberDataBaseQuantidade = broken_Database[i].quantity
 
       if(receberDataBaseQuantidade == undefined){
+
         let dataBaseQuantidadeCorreta = 0
-        return broken_Database[i].quantity = dataBaseQuantidadeCorreta
+        broken_Database[i].quantity = dataBaseQuantidadeCorreta
+
       }
       
       
     }
 
-    // A função lerPrecos() é responsável por corrigir todos os preços que foram transformados em String ----
+// A função lerPrecos() é responsável por corrigir todos os preços que foram transformados em String 
 
     function lerPrecos(){
 
       let receberQuantidadePreco = broken_Database[i].price
       let dataBaseprecosCorretos = parseFloat(receberQuantidadePreco)
 
-      return broken_Database[i].price = dataBaseprecosCorretos
+      broken_Database[i].price = dataBaseprecosCorretos
       
     } 
     
@@ -128,6 +124,7 @@ function lerBancoDados(){
     
     
   }
+
   
 }
 
@@ -138,75 +135,99 @@ function lerBancoDados(){
 
 /* A função 'ordenar()' irá retornar o resultado final do arquivo corrigido ordenado em crescente pelos números de ID e em ordem alfabética. */
 
+
 function ordenar(){
 
   lerBancoDados()
 
-  function ordemAlfabetica(){
-    var ordemAlfabetica = broken_Database.sort((a, b) => a.category < b.category ? -1 : true)
-    console.log(ordemAlfabetica)
-  }
+    let acessorios = broken_Database
+              .filter(p => p.category === "Acessórios")
+              .sort((a, b) => a.id - b.id)
+  
+    let eletronicos = broken_Database
+              .filter(p => p.category === "Eletrônicos")
+              .sort((a, b) => a.id - b.id)
+  
+    let eletrodomesticos = broken_Database
+              .filter(p => p.category === "Eletrodomésticos")
+              .sort((a, b) => a.id - b.id)
+  
+    let panelas = broken_Database
+              .filter(p => p.category === "Panelas")
+              .sort((a, b) => a.id - b.id)
+  
     
-  function ordemId(){
-    var ordemId = broken_Database.sort((a, b) => a.id - b.id)
-    console.log(ordemId)
-  }
+  let filtrado = [acessorios, eletrodomesticos ,eletronicos, panelas]
 
-  ordemAlfabetica()
-  ordemId()
-}
+  console.log(filtrado)
+  }
+  
 
 
 /* A função 'somaCategoria()' é responsável por devolver a somatória da quantidade de itens que temos em cada categoria */
 
-function somaCategoria(){
+  function somaCategoria(){
 
-  lerBancoDados()
+    lerBancoDados()
 
-  let arrayEletronicos = broken_Database
-          .filter(p => p.category === 'Eletrônicos')
-          .reduce((acc, eletr)=> acc + eletr.quantity, 0)
-
-
-  let arrayAcessorios = broken_Database
-          .filter(p => p.category === 'Acessórios')
-          .reduce((acc, eletr)=> acc + eletr.quantity, 0)
+    let arrayEletronicos = broken_Database
+            .filter(p => p.category === 'Eletrônicos')
+            .reduce((acc, eletr)=> acc + eletr.quantity, 0)
 
 
-  let arrayEletrodomesticos = broken_Database
-          .filter(p => p.category === 'Eletrodomésticos')
-          .reduce((acc, eletr)=> acc + eletr.quantity, 0)
+    let arrayAcessorios = broken_Database
+            .filter(p => p.category === 'Acessórios')
+            .reduce((acc, eletr)=> acc + eletr.quantity, 0)
+
+
+    let arrayEletrodomesticos = broken_Database
+            .filter(p => p.category === 'Eletrodomésticos')
+            .reduce((acc, eletr)=> acc + eletr.quantity, 0)
+
+    let arrayPanelas = broken_Database
+            .filter(p => p.category === 'Panelas')
+            .reduce((acc, eletr)=> acc + eletr.quantity, 0)
+    
+
+
+
+    let somatoria = [
+            {
+              "Category": 'Eletrônicos',
+              "Total_Quantidade": arrayEletronicos
+            },
+            {
+              "Category": 'Eletrodomésticos',
+              "Total_Quantidade": arrayEletrodomesticos
+            },
+            {
+              "Category": 'Acessórios',
+              "Total_Quantidade": arrayAcessorios,
+            },
+            {
+              "Category": 'Panelas',
+              "Total_Quantidade": arrayPanelas,
+            }
+    ]
+
+    console.log(somatoria)
+    }
+
+    ordenar()
+    somaCategoria()
+
+// Function 'exportarSaidaJson' será responsável por criar um arquivo externo .JSON recebendo como input o banco de dados corrigido
+
+    function exportarSaidaJson(){
+        
+      lerBancoDados()
+
+    var fs = require('fs');
+      fs.appendFile('saida.json', `${JSON.stringify(broken_Database)}`, function (err) {
+        if (err) throw err;
+        console.log('Saída.JSON criado');
+      });
+    }
   
-
-          
-
-  let somatoria = [{
-    "Category": 'Eletrônicos',
-    "Total_Quantidade": arrayEletronicos
-  },
-  {
-    "Category": 'Eletrodomésticos',
-    "Total_Quantidade": arrayEletrodomesticos
-  },
-  {
-    "Category": 'Acessórios',
-    "Total_Quantidade": arrayAcessorios,
-  }]
-
-  
-  console.log(somatoria)
-
-}
-
-
-
-
-ordenar()
-somaCategoria()
-
-
-
-
-
-
-
+    // exportarSaidaJson()
+    
