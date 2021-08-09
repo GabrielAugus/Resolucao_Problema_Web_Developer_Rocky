@@ -228,6 +228,6 @@ function ordenar(){
         console.log('Saída.JSON criado');
       });
     }
-  
+  // Deixei a chamada da função comentada apenas para ser chamada quando quiser, pois o Saída.Json já foi criada.
     // exportarSaidaJson()
     
